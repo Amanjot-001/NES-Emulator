@@ -10,9 +10,19 @@ type CPU struct {
 	Y uint8 // Y Register
 
 	// Status flags (using single byte for simplicity, each bit can represent a flag)
-	Status uint8
+	P uint8
 }
 
-func main() {
+func NewCPU() *CPU {
+	return &CPU{
+		PC: 0xFFFC,
+		S:  0xFD,
+		P:  0b00100100,
+	}
+}
 
+func (cpu *CPU) Reset() {
+	cpu.PC = 0xFFFC
+	cpu.S -= 3
+	cpu.P |= 0b00000100
 }
